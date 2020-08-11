@@ -9,7 +9,7 @@ namespace backend.utils
             Models.TbListaNegra tabela=new Models.TbListaNegra();
             tabela.NmPessoa=req.Nome;
             tabela.DsMotivo=req.Motivo;
-
+            tabela.DtInclusao=DateTime.Now;
             return tabela;
         }
         public Models.response.listanegraresponse paramodeloresponse(Models.TbListaNegra tabela)
@@ -18,7 +18,7 @@ namespace backend.utils
             resp.Id=tabela.IdListaNegra;
             resp.Nome=tabela.NmPessoa;
             resp.Motivo=tabela.DsMotivo;
-            resp.Inclusao=DateTime.Now;
+            resp.Inclusao=tabela.DtInclusao;
             
             return resp;
         }

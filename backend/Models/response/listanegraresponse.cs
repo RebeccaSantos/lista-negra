@@ -8,6 +8,6 @@ namespace backend.Models.response
         public string Nome { get; set; }
         public string Motivo { get; set; }
 
-        public DateTime Inclusao { get; set; }
+        public DateTime? Inclusao { get; set; }
     }
 }
