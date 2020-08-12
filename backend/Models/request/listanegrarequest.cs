@@ -6,7 +6,7 @@ namespace backend.Models.request
     {
         public string Nome { get; set; }
         public string Motivo { get; set; }
-
+         public string Local { get; set; }
         
     }
 }

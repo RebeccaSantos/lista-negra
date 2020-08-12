@@ -1,10 +1,8 @@
 using System;
 using System.Collections.Generic;
-using System.Collections;
+using Microsoft.EntityFrameworkCore;
 using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
+
 
 namespace backend.database
 {
@@ -22,6 +20,30 @@ namespace backend.database
             ctx.SaveChanges();
             
             return tabela;
+        }
+        public Models.TbListaNegra Alterar(Models.TbListaNegra atual, Models.TbListaNegra novo)
+        {
+            atual.NmPessoa = novo.NmPessoa;
+            atual.DsMotivo = novo.DsMotivo;
+            atual.DsLocal = novo.DsLocal;
+            atual.DtInclusao = novo.DtInclusao;
+            
+            ctx.SaveChanges();
+
+            return atual;
+        }
+        public Models.TbListaNegra ConsultarPorId(int id)
+        {
+          return ctx.TbListaNegra.First(x=>x.IdListaNegra==id);
+        }
+        
+        public Models.TbListaNegra Deletar(Models.TbListaNegra ln)
+        {
+           
+            ctx.Remove(ln);
+            ctx.SaveChanges();
+
+            return ln;
         }
     }
 }

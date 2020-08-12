@@ -5,7 +5,8 @@
   <ItemGroup>
     <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="3.1.1"/>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.1"/>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite.Design" Version="*"/>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.1"/>
+    <PackageReference Include="Newtonsoft.Json" Version="*"/>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.1"/>
   </ItemGroup>
 </Project>
