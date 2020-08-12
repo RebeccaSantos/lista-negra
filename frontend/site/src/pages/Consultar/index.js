@@ -1,4 +1,6 @@
 import React,{useState,useRef} from 'react';
+import {Link} from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
 import LoadingBar from 'react-top-loading-bar';
 import ListaNegraApi from '../../Services/ListaNegraApi';
 
@@ -7,54 +9,87 @@ const api = new ListaNegraApi();
 export default function Consultar(){
     const loadingBar = useRef(null);
 
-    const [registros, setRegistros] = useState([])
+    const [registros, setRegistros] = useState([]);
 
     const consultarClick = async () => {
         loadingBar.current.continuousStart();
 
-        const lns = await api.consultar()
-        setRegistros([...lns])
-
+        const lns = await api.consultar();
+        setRegistros([...lns]);
+        
         loadingBar.current.complete();
     }
 
-    return (
+    const deletarClick = async (id) => {   
+        const resp = await api.deletar(id);
+        toast.dark('Deletado da Lista Negra!', {
+            position: "bottom-right"});
+        consultarClick();
+    }
+
+    return(
         <div>
-            <LoadingBar
-                height={4}
-                color='#f11946'
-                ref={loadingBar}
-                />
-
-            <h1>Consultar na Lista Negra</h1>
+            <LoadingBar color='darkred' 
+                        ref={loadingBar} />
 
             <div>
-                <button onClick={consultarClick}> Consultar </button>
-            </div>
 
-            <div>
-                <table className="table">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Nome</th>
-                            <th>Motivo</th>
-                            <th>Inclusão</th>
-                        </tr>
-                    </thead>
+                <div>
+                    <div>
+                        <p>
+                            Consulte quem está na lista negra :
+                        </p>
+                    </div>
+                    <div>
+                        <button onClick={consultarClick}>
+                            Consultar
+                        </button>
+                    </div>
+                </div>
 
-                    <tbody>
-                        {registros.map(item => 
-                            <tr key={item.id}>
-                                <th>#{item.id}</th>
-                                <td>{item.nome}</td>
-                                <td>{item.motivo}</td>
-                                <td> {new Date(item.inclusao).toLocaleString() }</td>
-                            </tr>    
-                        )}
-                    </tbody>
-                </table>
+                <div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nome</th>
+                                <th>Motivo</th>
+                                <th>Local</th>
+                                <th>Data de Inclusão</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {registros.map(registro => 
+                                <tr key={registro.id}>
+                                    <th>#{registro.id}</th>
+                                    <td>{registro.nome}</td>
+                                    <td>{registro.motivo}</td>
+                                    <td>{registro.local}</td>
+                                    <td>{new Date(`${registro.inclusao}`).toLocaleDateString()}</td>
+                                    <td><button>
+                                            <Link to={{
+                                                pathname: `/alterar/${registro.id}`,
+                                                state: {
+                                                    nome: registro.nome,
+                                                    motivo: registro.motivo,
+                                                    local: registro.local,
+                                                    inclusao: registro.inclusao
+                                                }
+                                            }}>Alterar</Link>
+                                        </button>
+                                    </td>
+                                    <td><button
+                                                onClick={() => deletarClick(registro.id)}>
+                                                    Deletar
+                                        </button>
+                                    </td>
+                                </tr>
+                            )}
+                        </tbody>
+                    </table>
+                </div>
             </div>
+            <ToastContainer />
         </div>
     );
 }

@@ -1,34 +1,42 @@
-import React ,{useState} from 'react';
+import React, { useState } from 'react';
+
 import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import ListaNegraApi from '../../Services/ListaNegraApi';
+import { useParams } from 'react-router-dom';
 
 const api = new ListaNegraApi();
 
-export default function Cadastrar() {
-    const [nome, setNome] = useState('');
-    const [motivo, setMotivo] = useState('');
-    const [local, setLocal] = useState('');
-    const [inclusao, setInclusao] = useState('');
 
-    const salvarClick = async () => {
-        const resp = await api.cadastrar({
+export default function Alterar(props) {
+
+    const lnId = useParams().id; 
+    const ln = props.location.state;
+    const [nome, setNome] = useState(ln.nome);
+    const n = ln.nome;
+    const [motivo, setMotivo] = useState(ln.motivo);
+    const [local, setLocal] = useState(ln.local);
+    const [inclusao, setInclusao] = useState(ln.inclusao);
+
+    const alterarClick = async (id) => {
+        console.log(id);
+        const resp = await api.alterar(id, {
                                 nome: nome,
                                 motivo: motivo,
                                 local: local,
                                 inclusao: inclusao
                            });
 
-        toast.dark('Cadastrado com sucesso!!');
+        toast.dark('Alterado');
     }
 
     return(
         <div>
-
             <div>
                 <div>
                     <p>
-                        Cadastre alguém na lista negra!
+                        Alterando "{n}" para
                     </p>
                 </div>
 
@@ -61,8 +69,8 @@ export default function Cadastrar() {
                 </div>
 
                 <div>
-                    <button onClick={salvarClick}>
-                        <p>Cadastrar</p>
+                    <button onClick={() => alterarClick(lnId)}>
+                        <p>Alterar</p>
                     </button>
                 </div>
             </div>
@@ -70,4 +78,3 @@ export default function Cadastrar() {
         </div>
     );
 }
-

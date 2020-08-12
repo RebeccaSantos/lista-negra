@@ -34,7 +34,8 @@ namespace backend.database
         }
         public Models.TbListaNegra ConsultarPorId(int id)
         {
-          return ctx.TbListaNegra.First(x=>x.IdListaNegra==id);
+          Models.TbListaNegra resp= ctx.TbListaNegra.First(x=>x.IdListaNegra==id);
+          return resp;
         }
         
         public Models.TbListaNegra Deletar(Models.TbListaNegra ln)

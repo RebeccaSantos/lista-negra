@@ -17,7 +17,6 @@ namespace backend.Models
         public string DsMotivo { get; set; }
         [Column("ds_local", TypeName = "varchar(100)")]
         public string DsLocal { get; set; }
-
         [Column("dt_inclusao", TypeName = "datetime")]
         public DateTime? DtInclusao { get; set; }
     }

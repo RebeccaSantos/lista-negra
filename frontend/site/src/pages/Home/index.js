@@ -7,7 +7,7 @@ function Home() {
     <div className="App-header">
     <div className="App">
     
-     <h1><Link to="/consultar">Cadastrar</Link></h1> 
+     <h1><Link to="/consultar">Consultar</Link></h1> 
     <h1><Link to="/cadastrar">Cadastrar</Link></h1>
     </div>
     </div>

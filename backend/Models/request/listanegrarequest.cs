@@ -1,4 +1,4 @@
-
+using System;
 
 namespace backend.Models.request
 {
@@ -7,6 +7,7 @@ namespace backend.Models.request
         public string Nome { get; set; }
         public string Motivo { get; set; }
          public string Local { get; set; }
+         public DateTime Inclusao { get; set; }
         
     }
 }
