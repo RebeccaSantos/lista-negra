@@ -12,19 +12,29 @@ export default function Consultar(){
     const [registros, setRegistros] = useState([]);
 
     const consultarClick = async () => {
-        loadingBar.current.continuousStart();
+         try {
+            loadingBar.current.continuousStart();
+            const lns = await api.consultar();
+            setRegistros([...lns]);
+            loadingBar.current.complete();
+             
+         } catch (e) {
+             toast.error(e.response.data.mensagem)
+         }
 
-        const lns = await api.consultar();
-        setRegistros([...lns]);
         
-        loadingBar.current.complete();
     }
 
     const deletarClick = async (id) => {   
-        const resp = await api.deletar(id);
-        toast.dark('Deletado da Lista Negra!', {
+        try{
+            const resp = await api.deletar(id);
+            toast.dark('Deletado da Lista Negra!', {
             position: "bottom-right"});
-        consultarClick();
+            consultarClick();
+        }
+        catch(e){
+            toast.error(e.response.data.mensagem)
+        }
     }
     useEffect(() => {
         consultarClick();
@@ -56,6 +66,7 @@ export default function Consultar(){
                             <tr>
                                 <th>ID</th>
                                 <th>Nome</th>
+                                <th>Foto</th>
                                 <th>Motivo</th>
                                 <th>Local</th>
                                 <th>Data de Inclusão</th>

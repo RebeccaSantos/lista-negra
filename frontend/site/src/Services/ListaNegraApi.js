@@ -24,7 +24,7 @@ export default class ListaNegraApi {
         return resp;
     }
     buscarImagem(foto) {
-        const urlFoto = api.defaults.baseURL + '/listanegra/foto/' + foto;
+        const urlFoto = api.defaults.baseURL + '/ln/foto/' + foto;
         console.log(urlFoto);
 
         return urlFoto;

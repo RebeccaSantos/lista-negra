@@ -21,7 +21,7 @@ namespace backend.utils
             resp.Motivo=tabela.DsMotivo;
             resp.Local=tabela.DsLocal;
             resp.Inclusao=tabela.DtInclusao;
-           
+            resp.Foto=tabela.DsFoto;
             
             return resp;
         }

@@ -20,15 +20,19 @@ export default function Alterar(props) {
     const [inclusao, setInclusao] = useState(ln.inclusao);
 
     const alterarClick = async (id) => {
-        console.log(id);
-        const resp = await api.alterar(id, {
-                                nome: nome,
-                                motivo: motivo,
-                                local: local,
-                                inclusao: inclusao
-                           });
-
-        toast.dark('Alterado');
+        try {
+            console.log(id);
+            const resp = await api.alterar(id, {
+                                    nome: nome,
+                                    motivo: motivo,
+                                    local: local,
+                                    inclusao: inclusao
+                               });
+    
+            toast.dark('Alterado');
+        } catch (e) {
+            toast.error(e.response.data.mensagem)
+        }
     }
 
     return(

@@ -14,24 +14,29 @@ namespace backend.bussines
         }
         public Models.TbListaNegra Inserir(Models.TbListaNegra tabela){
 
-            if(tabela.NmPessoa==string.Empty)
+            if(string.IsNullOrEmpty(tabela.NmPessoa))
                throw new ArgumentException("Nome é obrigatorio");
-            if(tabela.DsMotivo==string.Empty)
+            if(string.IsNullOrEmpty(tabela.DsMotivo))
                throw new ArgumentException("Motivo é obrigatorio");
-
+            
+            if(string.IsNullOrEmpty(tabela.DsLocal))
+               throw new ArgumentException("Local é obrigatorio");
+            
+            if(tabela.DtInclusao == new DateTime())
+                throw new Exception("Data nao pode maior do que a data atual");
               
             db.Inserir(tabela);
             return tabela;
         }
                 public Models.TbListaNegra Alterar(Models.TbListaNegra atual, Models.TbListaNegra novo)
         {
-            if(novo.NmPessoa == string.Empty)
+            if(string.IsNullOrEmpty(novo.NmPessoa))
                 throw new Exception("Nome é obrigatorio");
-            if(novo.DsMotivo == string.Empty)
+            if(string.IsNullOrEmpty(novo.DsMotivo))
                 throw new Exception("Motivo é obrigatorio");
-            if(novo.DsLocal == string.Empty)
+            if(string.IsNullOrEmpty(novo.DsLocal))
                 throw new Exception("Local é obrigatorio");
-            if(novo.DtInclusao > DateTime.Now)
+            if(novo.DtInclusao == new DateTime())
                 throw new Exception("Data nao pode maior do que a data atual");
 
             return db.Alterar(atual, novo);
