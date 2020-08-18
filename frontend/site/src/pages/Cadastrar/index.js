@@ -10,13 +10,16 @@ export default function Cadastrar() {
     const [motivo, setMotivo] = useState('');
     const [local, setLocal] = useState('');
     const [inclusao, setInclusao] = useState('');
+    const [foto, setFoto] = useState('');
 
     const salvarClick = async () => {
         const resp = await api.cadastrar({
                                 nome: nome,
+                                foto:foto,
                                 motivo: motivo,
                                 local: local,
                                 inclusao: inclusao
+                                
                            });
 
         toast.dark('Cadastrado com sucesso!!');
@@ -52,7 +55,12 @@ export default function Cadastrar() {
                         value={local}
                         onChange={(e) => setLocal(e.target.value)}/>
                 </div>
-
+                <div>
+                    <label>Foto : </label>
+                    <input type="file"
+                        value={foto}
+                        onChange={(e) => setFoto(e.target.files[0])}/>
+                </div>
                 <div>
                     <label>Data : </label>
                     <input type="date"

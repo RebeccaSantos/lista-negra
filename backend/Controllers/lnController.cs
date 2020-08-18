@@ -11,16 +11,19 @@ namespace backend.Controllers
     public class lncontroller:ControllerBase
     {
          bussines.listanegrabussines business = new bussines.listanegrabussines();
-        utils.conversorlistanegra conversor = new utils.conversorlistanegra();
+         bussines.GerenciadorFoto gerenciador=new bussines.GerenciadorFoto();
+         utils.conversorlistanegra conversor = new utils.conversorlistanegra();
 
 
         [HttpPost]
-        public ActionResult<Models.response.listanegraresponse> Inserir(Models.request.listanegrarequest request)
+        public ActionResult<Models.response.listanegraresponse> Inserir([FromForm]Models.request.listanegrarequest request)
         {
             try
             {
                 Models.TbListaNegra ln = conversor.paramodelotabela(request);
+                ln.DsFoto=gerenciador.GerarNome(request.Foto.FileName);
                 business.Inserir(ln);
+                gerenciador.SalvarFoto(ln.DsFoto,request.Foto);
 
                 Models.response.listanegraresponse resp = conversor.paramodeloresponse(ln);
                 return resp;
@@ -31,6 +34,22 @@ namespace backend.Controllers
                     new Models.response.erroresponse(404, ex.Message)
                 );
             }
+        }
+        [HttpGet("foto/{nome}")]
+        public ActionResult BuscarFoto(string nome)
+        {
+           try
+           {
+             byte[] foto=gerenciador.LerFoto(nome);
+             string ContentType=gerenciador.GerarContentType(nome);
+             return File(foto,ContentType);  
+           }
+
+          catch (System.Exception ex)
+          {
+
+              return BadRequest(new Models.response.erroresponse(400,ex.Message));
+          } 
         }
 
 

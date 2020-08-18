@@ -1,4 +1,4 @@
-import React,{useState,useRef} from 'react';
+import React,{useState,useRef,useEffect} from 'react';
 import {Link} from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import LoadingBar from 'react-top-loading-bar';
@@ -26,6 +26,9 @@ export default function Consultar(){
             position: "bottom-right"});
         consultarClick();
     }
+    useEffect(() => {
+        consultarClick();
+    }, [])
 
     return(
         <div>
@@ -37,7 +40,7 @@ export default function Consultar(){
                 <div>
                     <div>
                         <p>
-                            Consulte quem está na lista negra :
+                            Você esta na lista negra? acha que nao?<br/> click em consultar pra ter certeza rsrsrsr :
                         </p>
                     </div>
                     <div>
@@ -48,7 +51,7 @@ export default function Consultar(){
                 </div>
 
                 <div>
-                    <table>
+                    <table className="table">
                         <thead>
                             <tr>
                                 <th>ID</th>
@@ -56,6 +59,9 @@ export default function Consultar(){
                                 <th>Motivo</th>
                                 <th>Local</th>
                                 <th>Data de Inclusão</th>
+                                <th></th>
+                                <th></th>
+
                             </tr>
                         </thead>
                         <tbody>
@@ -63,6 +69,9 @@ export default function Consultar(){
                                 <tr key={registro.id}>
                                     <th>#{registro.id}</th>
                                     <td>{registro.nome}</td>
+                                    <td>
+                                   <img src={api.buscarImagem(registro.foto)} alt="" height="32" />
+                                    </td>
                                     <td>{registro.motivo}</td>
                                     <td>{registro.local}</td>
                                     <td>{new Date(`${registro.inclusao}`).toLocaleDateString()}</td>

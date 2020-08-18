@@ -8,9 +8,26 @@ export default class ListaNegraApi {
 
 
     async cadastrar(ln) {
-        const resp = await api.post('/ln', ln);
+        let formdata=new FormData();
+        formdata.append('nome',ln.nome);
+        formdata.append('motivo',ln.motivo);
+        formdata.append('local',ln.local);
+        formdata.append('inclusao',ln.inclusao);
+        formdata.append('foto',ln.foto);
+
+        
+
+        const resp = await api.post('/ln',formdata,{
+            headers:{'content-type': 'multipart/form-data'}
+        });
         console.log(resp);
         return resp;
+    }
+    buscarImagem(foto) {
+        const urlFoto = api.defaults.baseURL + '/listanegra/foto/' + foto;
+        console.log(urlFoto);
+
+        return urlFoto;
     }
 
     async consultar() {

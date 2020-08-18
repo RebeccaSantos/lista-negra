@@ -21,10 +21,10 @@ namespace backend.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-
                 optionsBuilder.UseMySql("server=localhost;user id=root;password=1234;database=lndb", x => x.ServerVersion("5.7.30-mysql"));
             }
         }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -32,6 +32,11 @@ namespace backend.Models
             {
                 entity.HasKey(e => e.IdListaNegra)
                     .HasName("PRIMARY");
+
+                entity.Property(e => e.DsFoto)
+                    .HasDefaultValueSql("'user.svg'")
+                    .HasCharSet("latin1")
+                    .HasCollation("latin1_swedish_ci");
 
                 entity.Property(e => e.DsLocal)
                     .HasCharSet("latin1")

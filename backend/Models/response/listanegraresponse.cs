@@ -9,5 +9,6 @@ namespace backend.Models.response
         public string Motivo { get; set; }
         public string Local  { get; set;}
         public DateTime? Inclusao { get; set; }
+        public string Foto { get; set; }
     }
 }
