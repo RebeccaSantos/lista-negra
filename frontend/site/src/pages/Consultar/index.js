@@ -90,10 +90,10 @@ export default function Consultar(){
                                             <Link to={{
                                                 pathname: `/alterar/${registro.id}`,
                                                 state: {
-                                                    nome: registro.nome,
-                                                    motivo: registro.motivo,
-                                                    local: registro.local,
-                                                    inclusao: registro.inclusao
+                                                    nome:registro.nome,
+                                                    motivo:registro.motivo,
+                                                    local:registro.local,
+                                                    inclusao:registro.inclusao
                                                 }
                                             }}>Alterar</Link>
                                         </button>
